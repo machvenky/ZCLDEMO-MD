@@ -1,0 +1,98 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+<edmx:DataServices m:DataServiceVersion="2.0">
+	<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="GWSAMPLE_BASIC" xml:lang="en" sap:schema-version="1">
+		
+		<EntityType Name="Product" sap:content-version="1">
+			<Key>
+				<PropertyRef Name="ProductID"/>
+			</Key>
+			<Property Name="ProductID" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Product ID" sap:updatable="false"/>
+			<Property Name="TypeCode" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Type Code"/>
+			<Property Name="Category" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Category"/>
+			<Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="255" sap:label="Product Name" sap:sortable="false"
+				sap:filterable="false"/>
+			<Property Name="NameLanguage" Type="Edm.String" MaxLength="2" sap:label="Language" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/>
+			<Property Name="Description" Type="Edm.String" MaxLength="255" sap:label="Prod.Descrip." sap:sortable="false" sap:filterable="false"/>
+			<Property Name="DescriptionLanguage" Type="Edm.String" MaxLength="2" sap:label="Language" sap:creatable="false" sap:updatable="false"
+				sap:sortable="false" sap:filterable="false"/>
+			<Property Name="SupplierID" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Business Partner ID"/>
+			<Property Name="SupplierName" Type="Edm.String" MaxLength="80" sap:label="Company" sap:creatable="false" sap:updatable="false"/>
+			<Property Name="TaxTarifCode" Type="Edm.Byte" Nullable="false" sap:label="Tax Tariff Code"/>
+			<Property Name="MeasureUnit" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Unit of Measure" sap:semantics="unit-of-measure"/>
+			<Property Name="WeightMeasure" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="WeightUnit" sap:label="Weight"/>
+			<Property Name="WeightUnit" Type="Edm.String" MaxLength="3" sap:label="Unit of Measure" sap:semantics="unit-of-measure"/>
+			<Property Name="CurrencyCode" Type="Edm.String" Nullable="false" MaxLength="5" sap:label="Currency Code" sap:semantics="currency-code"/>
+			<Property Name="Price" Type="Edm.Decimal" Precision="16" Scale="3" sap:unit="CurrencyCode" sap:label="Price"/>
+			<Property Name="Width" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="DimUnit" sap:label="Dimensions"/>
+			<Property Name="Depth" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="DimUnit" sap:label="Dimensions"/>
+			<Property Name="Height" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="DimUnit" sap:label="Dimensions"/>
+			<Property Name="DimUnit" Type="Edm.String" MaxLength="3" sap:label="Dimension Unit" sap:semantics="unit-of-measure"/>
+			<Property Name="CreatedAt" Type="Edm.DateTime" Precision="7" sap:label="Time Stamp" sap:creatable="false" sap:updatable="false"/>
+			<Property Name="ChangedAt" Type="Edm.DateTime" Precision="7" ConcurrencyMode="Fixed" sap:label="Time Stamp" sap:creatable="false"
+				sap:updatable="false"/>
+			<NavigationProperty Name="ToSalesOrderLineItems" Relationship="GWSAMPLE_BASIC.Assoc_Product_SalesOrderLineItems"
+				FromRole="FromRole_Assoc_Product_SalesOrderLineItems" ToRole="ToRole_Assoc_Product_SalesOrderLineItems"/>
+			<NavigationProperty Name="ToSupplier" Relationship="GWSAMPLE_BASIC.Assoc_BusinessPartner_Products"
+				FromRole="ToRole_Assoc_BusinessPartner_Products" ToRole="FromRole_Assoc_BusinessPartner_Products"/>
+		</EntityType>
+	
+		
+		<EntityContainer Name="GWSAMPLE_BASIC_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+		
+			<EntitySet Name="ProductSet" EntityType="GWSAMPLE_BASIC.Product" sap:content-version="1"/>
+			
+
+			<AssociationSet Name="Assoc_VH_Category_Products_AssocSet" Association="GWSAMPLE_BASIC.Assoc_VH_Category_Products" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:content-version="1">
+				<End EntitySet="VH_CategorySet" Role="FromRole_Assoc_VH_Category_Products"/>
+				<End EntitySet="ProductSet" Role="ToRole_Assoc_VH_Category_Products"/>
+			</AssociationSet>
+			<AssociationSet Name="Assoc_VH_ProductTypeCode_Products_AssocS" Association="GWSAMPLE_BASIC.Assoc_VH_ProductTypeCode_Products"
+				sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+				<End EntitySet="VH_ProductTypeCodeSet" Role="FromRole_Assoc_VH_ProductTypeCode_Products"/>
+				<End EntitySet="ProductSet" Role="ToRole_Assoc_VH_ProductTypeCode_Products"/>
+			</AssociationSet>
+			<AssociationSet Name="Assoc_VH_UnitQuantity_Products_AssocSet" Association="GWSAMPLE_BASIC.Assoc_VH_UnitQuantity_Products"
+				sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+				<End EntitySet="VH_UnitQuantitySet" Role="FromRole_Assoc_VH_UnitQuantity_Products"/>
+				<End EntitySet="ProductSet" Role="ToRole_Assoc_VH_UnitQuantity_Products"/>
+			</AssociationSet>
+			<AssociationSet Name="Assoc_VH_Currency_Products_AssocSet" Association="GWSAMPLE_BASIC.Assoc_VH_Currency_Products" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:content-version="1">
+				<End EntitySet="VH_CurrencySet" Role="FromRole_Assoc_VH_Currency_Products"/>
+				<End EntitySet="ProductSet" Role="ToRole_Assoc_VH_Currency_Products"/>
+			</AssociationSet>
+			
+			<AssociationSet Name="Assoc_Product_SalesOrderLineItems_AssocS" Association="GWSAMPLE_BASIC.Assoc_Product_SalesOrderLineItems"
+				sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+				<End EntitySet="ProductSet" Role="FromRole_Assoc_Product_SalesOrderLineItems"/>
+				<End EntitySet="SalesOrderLineItemSet" Role="ToRole_Assoc_Product_SalesOrderLineItems"/>
+			</AssociationSet>
+		
+			<AssociationSet Name="Assoc_BusinessPartner_Products_AssocSet" Association="GWSAMPLE_BASIC.Assoc_BusinessPartner_Products"
+				sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+				<End EntitySet="BusinessPartnerSet" Role="FromRole_Assoc_BusinessPartner_Products"/>
+				<End EntitySet="ProductSet" Role="ToRole_Assoc_BusinessPartner_Products"/>
+			</AssociationSet>
+			<AssociationSet Name="Assoc_VH_UnitWeight_Products_AssocSet" Association="GWSAMPLE_BASIC.Assoc_VH_UnitWeight_Products" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:content-version="1">
+				<End EntitySet="VH_UnitWeightSet" Role="FromRole_Assoc_VH_UnitWeight_Products"/>
+				<End EntitySet="ProductSet" Role="ToRole_Assoc_VH_UnitWeight_Products"/>
+			</AssociationSet>
+		
+			<AssociationSet Name="Assoc_VH_UnitLength_Products_AssocSet" Association="GWSAMPLE_BASIC.Assoc_VH_UnitLength_Products" sap:creatable="false"
+				sap:updatable="false" sap:deletable="false" sap:content-version="1">
+				<End EntitySet="VH_UnitLengthSet" Role="FromRole_Assoc_VH_UnitLength_Products"/>
+				<End EntitySet="ProductSet" Role="ToRole_Assoc_VH_UnitLength_Products"/>
+			</AssociationSet>
+		
+		</EntityContainer>
+		<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self"
+			href="https://sapes5.sapdevcenter.com/sap/opu/odata/IWBEP/GWSAMPLE_BASIC/$metadata"/>
+		<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version"
+			href="https://sapes5.sapdevcenter.com/sap/opu/odata/IWBEP/GWSAMPLE_BASIC/$metadata"/>
+	</Schema>
+</edmx:DataServices>
+</edmx:Edmx>
