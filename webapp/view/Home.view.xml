@@ -11,6 +11,7 @@
 									<pages>
 										<Image src="img/Penguins.jpg" height="600px"/>
 										<Image src="img/Tulips.jpg" height="600px"/>
+										<Image src="img/Tulips.jpg" height="600px"/>
 									</pages>
 								</Carousel>
 								<!--	<Button text="{i18n>showHelloButtonText}"/>
